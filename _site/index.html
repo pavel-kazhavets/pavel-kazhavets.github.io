@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title></title>
+  <meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://pavel-kazhavets.github.io/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="" href="https://pavel-kazhavets.github.io/feed.xml">
+
+  
+
+  
+  <meta property="og:title" content="">
+  <meta property="og:site_name" content="">
+  <meta property="og:url" content="https://pavel-kazhavets.github.io/">
+  <meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.">
+  
+  
+
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+  
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'G-RF9TW1FVZY', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/"></a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Archives</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="home">
+
+  
+
+  
+
+  <ul class="post-list">
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            
+              <a class="post-link" href="/ip-address-structure/">All you wanted to know about IP addresses but was too afraid to ask</a>
+            
+          </h1>
+
+          <p class="post-meta">
+            Apr 24, 2021
+            
+               •
+  
+    
+    
+      
+        <a href="/categories/networks/">networks</a>,
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+        <a href="/categories/cidr/">cidr</a>,
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+        <a href="/categories/ip/">ip</a>
+      
+    
+  
+
+
+
+
+            
+            
+          </p>
+        </header>
+
+        <div class="post-content">
+          <h2>Intro</h2>
+<p>You may have encountered something like</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.0.1/24
+</code></pre></div></div>
+<p>what is <code class="language-plaintext highlighter-rouge">/24</code> for?
+Or something like this on the next line</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>255.255.255.0
+</code></pre></div></div>
+<p>is it some other IP address? Does it point to the same thing? If not - what does it point to?</p>
+
+<p>IP addresses can be very confusing at first. They do have different representations of the same thing (binary vs dotted-decimal for IP addresses, binary vs dotted-decimal vs CIDR notation for subnet mask), you may need to <em>calculate</em> something, etc (?). This article aims to clarify structure of an IP address and explain things you commonly see in relation to them.</p>
+
+<p>Let’s start with the basics.</p>
+
+<hr />
+<h2>Structure of an IP address</h2>
+<p>IP address essentially consist of 4 numbers separated by dots which are also called <em>octets</em>. What is an octet? Basically octet is a number consisting of 8 bits - eight 1’s and 0’s.
+Some confusion starts right here and as most of the IP address related confusion is caused by machines not operating with decimal numbers (like <code class="language-plaintext highlighter-rouge">42</code>) but with binary numbers (like <code class="language-plaintext highlighter-rouge">00101010</code> which is also 42).
+Machines also operate with IP addresses in their binary form, so something that we see as</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.0.1
+</code></pre></div></div>
+
+<p>for our computers looks like</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 11000000.10101000.00000000.00000001
+(192     .168     .0       .1       )
+</code></pre></div></div>
+
+<p>In order to read this article you <em>don’t</em> need to be able to calculate binary-to-decimal and back in your head. I certainly can’t do that on big enough numbers (where big is “higher than 2”). Just try to visually understand how described operations work and assume that binary conversions here are correct (trust me, I used online calculator).</p>
+
+<p>One important thing about binary numbers you’ve seen above - they have limited amount of combinations. Let’s see an example of 3 bits. All possible combinations are:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>000 - 0
+001 - 1
+010 - 2
+011 - 3
+100 - 4
+101 - 5
+110 - 6
+111 - 7
+</code></pre></div></div>
+
+<p>if we continute counting furter to 8 we’ll see that 8 in binary format is <code class="language-plaintext highlighter-rouge">1000</code> which is four bits.
+Which means that 3-bit number only has 8 variations (0 through 7) which is 2^3 where 2 is number of possible values (0 and 1) and 3 is number of bits.</p>
+
+<p>Going back to our octets it means that each of 4 numbers in IP address is also limited and it is limited to 2^8 which is 256. And since we start counting from 0 it means that largest number you will ever see in IP address is 255 (all 1’s in binary - <code class="language-plaintext highlighter-rouge">11111111</code>).</p>
+
+<p>So even theoretically IP address <code class="language-plaintext highlighter-rouge">348.9.2.20</code> is not valid since 348 &gt; 255.</p>
+
+<p>That’s roughly it for basic IP addresses. Let’s move to subnets.</p>
+
+<hr />
+
+<h2>Subnets</h2>
+<p>Sometimes it may be very useful to group IP addresses together. Usually it’s done when <em>describing</em> IP addresses, for example in routing or firewalls.
+Let’s imagine you’re a network administrator and you see some malicious activity from outside of your network. Some strange requests are arriving at your loadbalancers. They are coming from different IP addresses, but there is something common in them: part of IP address is the same, like this:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>17.4.4.99
+17.4.4.105
+17.4.4.143
+14.4.4.190
+14.4.4.197
+14.4.4.206
+14.4.4.215
+...
+</code></pre></div></div>
+
+<p>First 3 octets are the same, but the last one is different.
+For you, as a network administrator, it would be very convenient to be able to block all IP addresses starting with <code class="language-plaintext highlighter-rouge">17.4.4</code>. And so it happens that there is a way to do so.</p>
+
+<p>There is a mechanism for grouping IP addresses called subnetting and these groups of IP addresses are called subnets. Let’s look at how it works.</p>
+
+<p>In general terms subnets are collections of IP addresses. Number of IP addresses is determined by <em>subnet mask</em>.
+Subnet mask, same as IP adress itself, is composed of 4 octets. There is a difference though - on binary level 1’s in subnet mask are contiguous. At first you have multiple 1’s in a row and then only 0’s:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>11111111.11111111.11111111.00000000
+</code></pre></div></div>
+<p>which in decimal would be</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>255.255.255.0
+</code></pre></div></div>
+
+<p>Or something like that:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>11111111.11111111.11000000.00000000
+</code></pre></div></div>
+<p>which is</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>255.255.192.0
+</code></pre></div></div>
+
+<p>Cool. But how does it work?
+It’s called a subnet <em>mask</em> for a reason. Subnet mask is applied to IP address in a particular way which allows to split IP address in two parts - subnet and host. Subnet part will identify which network IP address belongs to and host part will identify, well, host on this network.</p>
+
+<p>Each bit of subnet mask has a matching bit in IP address since they have the same size. All IP address bits which have matching subnet mask bit set to 1 will belong to subnet part, each bit which has subnet mask bit set to 0 will belong to host part.</p>
+
+<p>Let’s see on example of IP <code class="language-plaintext highlighter-rouge">192.168.0.1</code> with subnet mask <code class="language-plaintext highlighter-rouge">255.255.255.0</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>11111111.11111111.11111111.00000000 - subnet mask
+11000000.10101000.00000000.00000001 - IP
+(         subnet         ).( host )
+</code></pre></div></div>
+
+<p>First 3 octets in this IP will indicate a subnet and last octet will indicate a host. Which means that range of our possible hosts is range of possible values for 8 bits in last octet. This gives us IP addresses from <code class="language-plaintext highlighter-rouge">192.168.0.1</code> till <code class="language-plaintext highlighter-rouge">192.168.0.255</code>.</p>
+
+<p>So, in order to understand which part of IP address is network our machines will look at how many contiguous 1’s there are in subnet mask and will take the same amount of bits in IP address for network part and leva the rest for host part.</p>
+
+<p>This is heavily used in routing and firewalls because it allows grouping IP addresses together instead of listing each individual host.
+For example, if your home network uses <code class="language-plaintext highlighter-rouge">10.10.0.1-255</code> IP range you can specify <code class="language-plaintext highlighter-rouge">255.255.255.0</code> as a subnet mask in order to tell your machines to route internal packets directly (through switch) and not go to router.</p>
+
+<p>OK, but what is this <code class="language-plaintext highlighter-rouge">/24</code> thing?</p>
+
+<h2>CIDR notation</h2>
+<p>This <code class="language-plaintext highlighter-rouge">/{number}</code> postfix is called CIDR notation and is basically another <em>view</em> of a subnet mask. Remember that 1’s in subnet mask can only be contiguous? It means that instead of saying <code class="language-plaintext highlighter-rouge">11111111.11111111.00000000.00000000</code> we can just say that there are 16 bits with value <code class="language-plaintext highlighter-rouge">1</code> and everything else is <code class="language-plaintext highlighter-rouge">0</code>. And we write this number after IP address for convenience like <code class="language-plaintext highlighter-rouge">192.168.0.0/16</code>.</p>
+
+<p>It’s as simple as that. Here are some examples of different subnet masks in different notations (all with <code class="language-plaintext highlighter-rouge">10.0.0.0</code> address, will work in the same way for other addresses):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>dotted-decimal</th>
+      <th>binary</th>
+      <th>CIDR</th>
+      <th>example</th>
+      <th>possible hosts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">255.255.255.0</code></td>
+      <td><code class="language-plaintext highlighter-rouge">11111111.11111111.11111111.00000000</code></td>
+      <td><code class="language-plaintext highlighter-rouge">24</code></td>
+      <td><code class="language-plaintext highlighter-rouge">10.0.0.0/24</code></td>
+      <td><code class="language-plaintext highlighter-rouge">10.0.0.1-10.0.0.255</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">255.0.0.0</code></td>
+      <td><code class="language-plaintext highlighter-rouge">11111111.00000000.00000000.00000000</code></td>
+      <td><code class="language-plaintext highlighter-rouge">8</code></td>
+      <td><code class="language-plaintext highlighter-rouge">10.0.0.0/8</code></td>
+      <td><code class="language-plaintext highlighter-rouge">10.0.0.1-10.255.255.255</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">255.248.0.0</code></td>
+      <td><code class="language-plaintext highlighter-rouge">11111111.11111000.00000000.00000000</code></td>
+      <td><code class="language-plaintext highlighter-rouge">13</code></td>
+      <td><code class="language-plaintext highlighter-rouge">10.0.0.0/13</code></td>
+      <td><code class="language-plaintext highlighter-rouge">10.0.0.1-10.7.255.255</code></td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Something like <code class="language-plaintext highlighter-rouge">10.0.0.25/16</code> would mean that there is a <code class="language-plaintext highlighter-rouge">10.0.0.25</code> IP address on a network with subnet mask <code class="language-plaintext highlighter-rouge">255.255.0.0</code>.
+When trying to only describe network itself we usually set all host bits to 0. So network from this example can be described as <code class="language-plaintext highlighter-rouge">10.0.0.0/16</code>. Often describing network and setting host bits (like mentioning <code class="language-plaintext highlighter-rouge">10.0.0.25/16</code> in a firewall instead of <code class="language-plaintext highlighter-rouge">10.0.0.0/16</code>) would be considered invalid and rejected by the software you’re using.</p>
+
+<p>But how does one remember how many IPs there are in a subnet with particular subnet mask? Well, short answer - you don’t (unless you’re doing subnetting on a daily basis for years).
+Small mental hint: CIDRs which are a multiple of 8 are quite easy to calculate - remember that there are 4 octets containing 8 bits? So:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">/32</code> is a subnet for a single IP address</li>
+  <li><code class="language-plaintext highlighter-rouge">/24</code> is a subnet where only last number is variable (<code class="language-plaintext highlighter-rouge">10.0.0.*</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">/16</code> is a subnet where last two numbers are variable (<code class="language-plaintext highlighter-rouge">10.0.*.*</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">/8</code> is a subnet where last three numbers are variable (<code class="language-plaintext highlighter-rouge">10.*.*.*</code>)</li>
+</ul>
+
+<p>Subnet’s like <code class="language-plaintext highlighter-rouge">/13</code> or <code class="language-plaintext highlighter-rouge">/27</code> can be tricky to calculate in mind, so either use some IP calculator (I usually use <a href="http://jodies.de/ipcalc">this one</a>) or remember another mental hint: increasing subnet mask by one - let’s say from <code class="language-plaintext highlighter-rouge">/24</code> to <code class="language-plaintext highlighter-rouge">/25</code> will effectively split it in half. For example a single <code class="language-plaintext highlighter-rouge">10.0.0.0/24</code> network can be split into two: <code class="language-plaintext highlighter-rouge">10.0.0.0/25</code> (last octet values ranging from 1 to 127) and <code class="language-plaintext highlighter-rouge">10.0.0.128/25</code> (from 129 to 254).</p>
+
+<p>There is a convention that first possible IP in the subnet (10.0.0.0 in 10.0.0.0/24 subnet) is used to identify network itself and the last one (10.0.0.255) is used for <a href="https://en.wikipedia.org/wiki/Broadcast_address">broadcast</a>.</p>
+
+
+        </div>
+        
+      </li>
+    
+  </ul>
+
+  
+
+
+</div>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy; Pavel Kazhavets - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://pavel-kazhavets.github.io/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
