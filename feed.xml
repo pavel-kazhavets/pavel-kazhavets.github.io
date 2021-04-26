@@ -5,7 +5,7 @@
   
   <link href="https://pavel-kazhavets.github.io/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://pavel-kazhavets.github.io/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2021-04-26T18:46:34+00:00</updated>
+  <updated>2021-04-26T19:18:01+00:00</updated>
   <id>https://pavel-kazhavets.github.io//</id>
 
   
@@ -34,7 +34,7 @@
       <published>2021-04-24T06:10:56+00:00</published>
       <updated>2021-04-24T06:10:56+00:00</updated>
       <id>https://pavel-kazhavets.github.io/ip-address-structure</id>
-      <content type="html" xml:base="https://pavel-kazhavets.github.io/ip-address-structure/">&lt;h2&gt;Intro&lt;/h2&gt;
+      <content type="html" xml:base="https://pavel-kazhavets.github.io/ip-address-structure/">&lt;h3&gt;Intro&lt;/h3&gt;
 &lt;p&gt;You may have encountered something like&lt;/p&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;192.168.0.1/24
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -49,7 +49,7 @@ Or something like this on the next line&lt;/p&gt;
 &lt;p&gt;Let’s start with the basics.&lt;/p&gt;
 
 &lt;hr /&gt;
-&lt;h2&gt;Structure of an IP address&lt;/h2&gt;
+&lt;h3&gt;Structure of an IP address&lt;/h3&gt;
 &lt;p&gt;IP address essentially consist of 4 numbers separated by dots which are also called &lt;em&gt;octets&lt;/em&gt;. What is an octet? Basically octet is a number consisting of 8 bits - eight 1’s and 0’s.
 Some confusion starts right here and as most of the IP address related confusion is caused by machines not operating with decimal numbers (like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;42&lt;/code&gt;) but with binary numbers (like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;00101010&lt;/code&gt; which is also 42).
 Machines also operate with IP addresses in their binary form, so something that we see as&lt;/p&gt;
@@ -60,8 +60,8 @@ Machines also operate with IP addresses in their binary form, so something that 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; 11000000.10101000.00000000.00000001
 (192     .168     .0       .1       )
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;!--more--&gt;
 
+&lt;!-- more --&gt;
 &lt;p&gt;In order to read this article you &lt;em&gt;don’t&lt;/em&gt; need to be able to calculate binary-to-decimal and back in your head. I certainly can’t do that on big enough numbers (where big is “higher than 2”). Just try to visually understand how described operations work and assume that binary conversions here are correct (trust me, I used online calculator).&lt;/p&gt;
 
 &lt;p&gt;One important thing about binary numbers you’ve seen above - they have limited amount of combinations. Let’s see an example of 3 bits. All possible combinations are:&lt;/p&gt;
@@ -86,7 +86,7 @@ Which means that 3-bit number only has 8 variations (0 through 7) which is 2^3 w
 
 &lt;hr /&gt;
 
-&lt;h2&gt;Subnets&lt;/h2&gt;
+&lt;h3&gt;Subnets&lt;/h3&gt;
 &lt;p&gt;Sometimes it may be very useful to group IP addresses together. Usually it’s done when &lt;em&gt;describing&lt;/em&gt; IP addresses, for example in routing or firewalls.
 Let’s imagine you’re a network administrator and you see some malicious activity from outside of your network. Some strange requests are arriving at your load balancers. They are coming from different IP addresses, but there is something common in them: part of IP address is the same, like this:&lt;/p&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;17.4.4.99
@@ -140,7 +140,7 @@ For example, if your home network uses &lt;code class=&quot;language-plaintext h
 
 &lt;p&gt;OK, but what is this &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/24&lt;/code&gt; thing?&lt;/p&gt;
 
-&lt;h2&gt;CIDR notation&lt;/h2&gt;
+&lt;h3&gt;CIDR notation&lt;/h3&gt;
 &lt;p&gt;This &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/{number}&lt;/code&gt; postfix is called CIDR notation and is basically another &lt;em&gt;view&lt;/em&gt; of a subnet mask. Remember that 1’s in subnet mask can only be contiguous? It means that instead of saying &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;11111111.11111111.00000000.00000000&lt;/code&gt; we can just say that there are 16 bits with value &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; and everything else is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt;. And we write this number after IP address for convenience like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;192.168.0.0/16&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;It’s as simple as that. Here are some examples of different subnet masks in different notations (all with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;10.0.0.0&lt;/code&gt; address, will work in the same way for other addresses):&lt;/p&gt;

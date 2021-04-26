@@ -131,7 +131,7 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <h2>Intro</h2>
+    <h3>Intro</h3>
 <p>You may have encountered something like</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>192.168.0.1/24
 </code></pre></div></div>
@@ -146,7 +146,7 @@ Or something like this on the next line</p>
 <p>Let’s start with the basics.</p>
 
 <hr />
-<h2>Structure of an IP address</h2>
+<h3>Structure of an IP address</h3>
 <p>IP address essentially consist of 4 numbers separated by dots which are also called <em>octets</em>. What is an octet? Basically octet is a number consisting of 8 bits - eight 1’s and 0’s.
 Some confusion starts right here and as most of the IP address related confusion is caused by machines not operating with decimal numbers (like <code class="language-plaintext highlighter-rouge">42</code>) but with binary numbers (like <code class="language-plaintext highlighter-rouge">00101010</code> which is also 42).
 Machines also operate with IP addresses in their binary form, so something that we see as</p>
@@ -157,8 +157,8 @@ Machines also operate with IP addresses in their binary form, so something that 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> 11000000.10101000.00000000.00000001
 (192     .168     .0       .1       )
 </code></pre></div></div>
-<!--more-->
 
+<!-- more -->
 <p>In order to read this article you <em>don’t</em> need to be able to calculate binary-to-decimal and back in your head. I certainly can’t do that on big enough numbers (where big is “higher than 2”). Just try to visually understand how described operations work and assume that binary conversions here are correct (trust me, I used online calculator).</p>
 
 <p>One important thing about binary numbers you’ve seen above - they have limited amount of combinations. Let’s see an example of 3 bits. All possible combinations are:</p>
@@ -183,7 +183,7 @@ Which means that 3-bit number only has 8 variations (0 through 7) which is 2^3 w
 
 <hr />
 
-<h2>Subnets</h2>
+<h3>Subnets</h3>
 <p>Sometimes it may be very useful to group IP addresses together. Usually it’s done when <em>describing</em> IP addresses, for example in routing or firewalls.
 Let’s imagine you’re a network administrator and you see some malicious activity from outside of your network. Some strange requests are arriving at your load balancers. They are coming from different IP addresses, but there is something common in them: part of IP address is the same, like this:</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>17.4.4.99
@@ -237,7 +237,7 @@ For example, if your home network uses <code class="language-plaintext highlight
 
 <p>OK, but what is this <code class="language-plaintext highlighter-rouge">/24</code> thing?</p>
 
-<h2>CIDR notation</h2>
+<h3>CIDR notation</h3>
 <p>This <code class="language-plaintext highlighter-rouge">/{number}</code> postfix is called CIDR notation and is basically another <em>view</em> of a subnet mask. Remember that 1’s in subnet mask can only be contiguous? It means that instead of saying <code class="language-plaintext highlighter-rouge">11111111.11111111.00000000.00000000</code> we can just say that there are 16 bits with value <code class="language-plaintext highlighter-rouge">1</code> and everything else is <code class="language-plaintext highlighter-rouge">0</code>. And we write this number after IP address for convenience like <code class="language-plaintext highlighter-rouge">192.168.0.0/16</code>.</p>
 
 <p>It’s as simple as that. Here are some examples of different subnet masks in different notations (all with <code class="language-plaintext highlighter-rouge">10.0.0.0</code> address, will work in the same way for other addresses):</p>
