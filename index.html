@@ -200,7 +200,7 @@ Which means that 3-bit number only has 8 variations (0 through 7) which is 2^3 w
 
 <h2>Subnets</h2>
 <p>Sometimes it may be very useful to group IP addresses together. Usually it’s done when <em>describing</em> IP addresses, for example in routing or firewalls.
-Let’s imagine you’re a network administrator and you see some malicious activity from outside of your network. Some strange requests are arriving at your loadbalancers. They are coming from different IP addresses, but there is something common in them: part of IP address is the same, like this:</p>
+Let’s imagine you’re a network administrator and you see some malicious activity from outside of your network. Some strange requests are arriving at your load balancers. They are coming from different IP addresses, but there is something common in them: part of IP address is the same, like this:</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>17.4.4.99
 17.4.4.105
 17.4.4.143
@@ -245,7 +245,7 @@ It’s called a subnet <em>mask</em> for a reason. Subnet mask is applied to IP 
 
 <p>First 3 octets in this IP will indicate a subnet and last octet will indicate a host. Which means that range of our possible hosts is range of possible values for 8 bits in last octet. This gives us IP addresses from <code class="language-plaintext highlighter-rouge">192.168.0.1</code> till <code class="language-plaintext highlighter-rouge">192.168.0.255</code>.</p>
 
-<p>So, in order to understand which part of IP address is network our machines will look at how many contiguous 1’s there are in subnet mask and will take the same amount of bits in IP address for network part and leva the rest for host part.</p>
+<p>So, in order to understand which part of IP address is network our machines will look at how many contiguous 1’s there are in subnet mask and will take the same amount of bits in IP address for network part and leave the rest for host part.</p>
 
 <p>This is heavily used in routing and firewalls because it allows grouping IP addresses together instead of listing each individual host.
 For example, if your home network uses <code class="language-plaintext highlighter-rouge">10.10.0.1-255</code> IP range you can specify <code class="language-plaintext highlighter-rouge">255.255.255.0</code> as a subnet mask in order to tell your machines to route internal packets directly (through switch) and not go to router.</p>
